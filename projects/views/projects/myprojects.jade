@@ -1,0 +1,93 @@
+extends ../layout
+
+block content
+	h1.
+		 #{title}
+
+	form(action='/projects', method='get')
+		button(type='submit' class="btn btn-primary").
+			Svi projekti
+
+	#wrapper
+
+	h1  Projekti na kojima si voditelj
+
+	#projectList
+		table
+			thead
+				th Naziv projekta
+				th Opis projekta
+				th Cijena projekta
+				th Članovi projektnog tima
+				th Obavljeni poslovi
+				th Datum početka
+				th Datum završetka
+				th Arhivirano
+				th Detalji
+				th Edit?
+				th Delete?
+			tbody
+				- each project, i in leaderProjects
+					tr
+						td=project.projectName
+						td=project.projectDescription
+						td=project.projectPrice
+						td=project.projectMembers
+						td=project.projectFinishedWorks
+						td=project.projectStartDate
+						td=project.projectEndDate
+						if project.isArchived
+							td DA
+						else
+							td NE
+						td
+							form(action='/projects/#{project._id}', method='get')
+								button(type='submit', class="btn btn-primary").
+									Detalji
+						td
+							form(action='/projects/edit/#{project._id}', method='get', enctype='application/x-www-form-urlencoded')
+								button(type='submit', class="btn btn-primary").
+									Uredi
+						td
+							form(action='/projects/delete/#{project._id}', method='post', enctype='application/x-www-form-urlencoded')
+								input(type='hidden', value='DELETE', name='_method')
+								button(type='submit', class="btn btn-primary").
+									Obriši
+
+	h1 Projekti na kojima sudjeluješ kao član
+
+	#projectList
+		table
+			thead
+				th Naziv projekta
+				th Opis projekta
+				th Cijena projekta
+				th Članovi projektnog tima
+				th Obavljeni poslovi
+				th Datum početka
+				th Datum završetka
+				th Arhivirano
+				th Detalji
+				th Edit?
+			tbody
+				- each project, i in memberProjects
+					tr
+						td=project.projectName
+						td=project.projectDescription
+						td=project.projectPrice
+						td=project.projectMembers
+						td=project.projectFinishedWorks
+						td=project.projectStartDate
+						td=project.projectEndDate
+						if project.isArchived
+							td DA
+						else
+							td NE
+						td
+							form(action='/projects/#{project._id}', method='get')
+								button(type='submit', class="btn btn-primary").
+									Detalji
+						td
+							form(action='/projects/editMember/#{project._id}', method='get', enctype='application/x-www-form-urlencoded')
+								button(type='submit', class="btn btn-primary").
+									Uredi

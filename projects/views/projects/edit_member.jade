@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+	div(class="container")
+		h1.
+			Project ID #{project._id}
+
+		form(action='/projects/editMember/#{project._id}', method='post', name='updateproject', enctype='application/x-www-form-urlencoded')
+			div(class="form-group row")
+				p(for=projectName) Naziv projekta:
+					input#inputProjectName(type='text', value='#{project.projectName}', name='projectName' class="form-control" readonly required)
+			div(class="form-group row")
+				p(for=projectDescription) Opis projekta:
+					input#inputProjectDescription(type='text', value='#{project.projectDescription}', name='projectDescription' class="form-control" readonly required)
+			div(class="form-group row")
+				p(for=projectPrice) Cijena projekta:
+					input#inputProjectPrice(type='number', value='#{project.projectPrice}', name='projectPrice' class="form-control" readonly required)
+			div(class="form-group row")
+				p(for=projectFinishedWorks) Obavljeni poslovi:
+					input#inputProjectFinishedWorks(type='text', value='#{project.projectFinishedWorks}', name='projectFinishedWorks' class="form-control" required)
+			div(class="form-group row")
+				p(for=projectStartDate) Datum početka:
+					input#inputProjectStartDate(type='date', value='#{project.projectStartDate}', name='projectStartDate' class="form-control" readonly required)
+			div(class="form-group row")
+				p(for=projectEndDate) Datum završetka:
+					input#inputProjectEndDate(type='date', value='#{project.projectEndDate}', name='projectEndDate' class="form-control" readonly required)
+			input#inputIsArchived(type="checkbox", name="isArchived" checked=project.isArchived onclick="return false;")
+			label(for=isArchived) Arhiviraj
+			div(class="form-group row")
+				p Članovi projektnog tima:
+					#projectMembers
+						- each user, i in users
+							div(class="form-check")
+								input#inputProjectMember(type="checkbox", name="projectMember[]", checked=user.checked, value=user.username onclick="return false;")
+								label(for=projectMember)=user.username
+			p
+				input(type='hidden', value='PUT', name='_method')
+			p
+				button#btnSubmit(type='submit' class="btn btn-primary").
+					Ažuriraj

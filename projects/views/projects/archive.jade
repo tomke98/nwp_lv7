@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+    h1.
+         #{title}
+
+    form(action='/projects', method='get')
+        button(type='submit' class="btn btn-primary").
+            Svi projekti
+
+    #wrapper
+
+    #projectList
+        table
+            thead
+                th Naziv projekta
+                th Opis projekta
+                th Cijena projekta
+                th Članovi projekta
+                th Obavljeni poslovi
+                th Datum početka
+                th Datum završetka
+                th Arhivirano
+                th Detalji
+            tbody
+                - each project, i in projects
+                    tr
+                        td=project.projectName
+                        td=project.projectDescription
+                        td=project.projectPrice + "kn"
+                        td=project.projectMembers
+                        td=project.projectFinishedWorks
+                        td=project.projectStartDate
+                        td=project.projectEndDate
+                        if project.isArchived
+                            td Da
+                        else
+                            td NE
+                        td
+                            form(action='/projects/#{project._id}', method='get')
+                                button(type='submit', class="btn btn-primary").
+                                    Detalji

@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+        h2 Detalji o projektu
+        div(class="details")
+            p 
+                strong Naziv projekta:
+                |  #{project.projectName}
+            p
+                strong Opis projekta:
+                |  #{project.projectDescription}
+            p
+                strong Cijena projekta:
+                |  #{project.projectPrice}kn
+            p
+                strong Obavljeni poslovi:
+                |  #{project.projectFinishedWorks}
+            p
+                strong Datum početka:
+                |  #{project.projectStartDate}
+            p
+                strong Datum završetka:
+                |  #{project.projectEndDate}
+            p
+                strong Članovi projektnog tima:
+                |  #{project.projectMembers}
+            p
+                strong Autor:
+                |  #{project.projectAuthor}
+             p
+                strong Arhivirano:
+                |  #{project.isArchived}
+ 

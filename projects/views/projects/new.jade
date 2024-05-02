@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+	div
+		h2.
+			#{title}
+
+		form#formAddProject(name="addproject", method="post", action="/projects")
+			div(class="form-group row")
+				p(for=projectName) Naziv projekta:
+					input#inputProjectName(type="text", placeholder="Naziv", name="projectName" class="form-control" required)
+			div(class="form-group row")
+				p(for=projectDescription) Opis projekta:
+					input#inputProjectDescription(type="text", placeholder="Opis", name="projectDescription" class="form-control" required)
+			div(class="form-group row")
+				p(for=projectPrice) Cijena projekta:
+					input#inputProjectPrice(type="number", placeholder="Cijena", name="projectPrice" class="form-control" required)
+			div(class="form-group row")
+				p(for=projectFinishedWorks) Obavljeni poslovi:
+					input#inputProjectFinishedWorks(type="text", placeholder="Obavljeni poslovi", name="projectFinishedWorks" class="form-control" required)
+			div(class="form-group row")
+				p(for=projectStartDate) Datum početka:
+					input#inputProjectStartDate(type="date", name="projectStartDate" class="form-control" required)
+			div(class="form-group row")
+				p(for=projectEndDate) Datum završetka:
+					input#inputProjectEndDate(type="date", name="projectEndDate" class="form-control" required)
+			input#inputIsArchived(type="checkbox", name="archived")
+			label(for=isArchived) Archived
+			div(class="form-group row")
+				p Članovi projektnog tima:
+					#projectMembers
+						- each user, i in users
+							div(class="form-check")
+								input#inputProjectMember(type="checkbox", name="projectMember[]", value=user.username)
+								label(for=projectMember)=user.username
+			p
+				button#btnSubmit(type="submit" class="btn btn-primary") Dodaj

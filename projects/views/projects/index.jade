@@ -1,0 +1,56 @@
+extends ../layout
+
+block content
+	div(class="d-flex justify-content-center")
+		form(action='/projects/archive', method='get')
+			button(type='submit' class="btn btn-primary m-3").
+				Arhivirani projekti
+
+		form(action='/projects/myprojects', method='get')
+			button(type='submit' class="btn btn-primary m-3").
+				Moji projekti
+
+		form(action='/projects/new', method='get')
+			button(type='submit' class="btn btn-primary m-3").
+				Dodaj novi projekt
+
+		form(action='/logout', method='get')
+			button(type='submit' class="btn btn-primary m-3").
+				Odjavi se
+
+	div
+
+		#wrapper
+
+		#projectList
+			table
+				thead
+					th Naziv projekta
+					th Opis projekta
+					th Cijena projekta
+					th Autor projekta
+					th Članovi projektnog tima
+					th Obavljeni poslovi
+					th Datum početka
+					th Datum završetka
+					th Arhivirano
+					th Detalji
+				tbody
+					- each project, i in projects
+						tr
+							td=project.projectName
+							td=project.projectDescription
+							td=project.projectPrice
+							td=project.authorName
+							td=project.projectMembers
+							td=project.projectFinishedWorks
+							td=project.projectStartDate
+							td=project.projectEndDate
+							if project.isArchived
+								td DA
+							else
+								td NE
+							td
+								form(action='/projects/#{project._id}', method='get')
+									button(type='submit', class="btn btn-primary").
+										Detalji
